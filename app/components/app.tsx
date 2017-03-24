@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { incrementCounter, decrementCounter, addCounter } from '../actions';
 import { CounterList } from './counter_list';
+import {tagListView} from "./tag_list";
 
 interface IAppState {
   counters: number[];
@@ -26,12 +27,10 @@ export class App extends React.Component<IAppProps, {}> {
   public render(): React.ReactElement<{}> {
     const { dispatch, counters }: any = this.props;
 
-    return (<div>
-        <CounterList counters={counters}
-                     increment={(index: number) => dispatch(incrementCounter(index))}
-                     decrement={(index: number) => dispatch(decrementCounter(index))}
-        />
 
+
+    return (<div>
+          {tagListView.getComponent()}
         <button onClick={() => dispatch(addCounter())}>Add Counter</button>
       </div>
     );

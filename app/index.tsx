@@ -7,8 +7,10 @@ import { Provider } from 'react-redux';
 
 import { App } from './components/app';
 import { counterApp } from './reducers';
+import {applyMiddleware} from "redux";
 
 declare const require: (name: String) => any;
+var thunk = require("redux-thunk");
 
 interface IHotModule {
   hot?: { accept: (path: string, callback: () => void) => void };
@@ -17,7 +19,11 @@ interface IHotModule {
 declare const module: IHotModule;
 
 function configureStore(): Store {
-  const store: Store = createStore(counterApp);
+  console.log("THUNK", thunk);
+  const store: Store = createStore(
+      counterApp,
+      applyMiddleware(thunk.default)
+  );
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
