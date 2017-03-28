@@ -6,6 +6,7 @@ import {IModel} from "../core/models/IModel";
 import {PaginatedTableView, IPaginatedTableProps} from "../core/views/PaginatedTableView";
 import {LocalService} from "../core/services/LocalService";
 import {PaginatedTableViewWithFilters, Filter} from "../core/views/PaginatedTableViewWithFilters";
+import {store} from "../store";
 
 export const tagService = new LocalService("http://localhost:8000/admin/api/soft_tags");
 
@@ -41,6 +42,10 @@ class TagListView extends PaginatedTableViewWithFilters<Tag>{
             cls = "#dff0d8"
         }
         return <tr style={{background: cls}}>{children}</tr>
+    }
+
+    getStore(){
+        return store
     }
 
 
