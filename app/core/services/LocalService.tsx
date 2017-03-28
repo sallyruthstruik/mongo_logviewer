@@ -38,17 +38,14 @@ export class LocalService<Model extends IModel>extends Service<Model>{
                 }
             }
 
-            output = output.slice(
-                page_size*(page-1), page_size*page
-            );
-
-
             const out = {
-                results: output,
+                results: output.slice(
+                    page_size*(page-1), page_size*page
+                ),
                 page: page,
                 page_size: page_size,
-                pages: this.data.length/page_size,
-                total: this.data.length
+                pages: output.length/page_size,
+                total: output.length
             };
 
             return out;
