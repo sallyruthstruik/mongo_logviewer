@@ -7,9 +7,20 @@ import {IModel} from "../models/IModel";
 declare var $: any;
 
 
-interface IRequestParameters{
-    filters: any;
+export interface IRequestParameters{
+    filters?: any;
+    page?: number;
+    pages?: number;
+    page_size?: number;
+    ordering?: string[];
 }
+
+export const defaultParams: IRequestParameters = {
+    filters: {},
+    page: 1,
+    page_size: 10,
+    ordering: []
+};
 
 /**
  * Базовый класс сервиса для взаимодействия с бэкендом.
@@ -21,15 +32,18 @@ export class Service<Model extends IModel>{
         this.endpoint = endpoint;
     }
 
-    protected makeJsonHttpRequest(): Promise<Model[]>{
+    protected makeJsonHttpRequest(params: IRequestParameters): Promise<Model[]>{
+
+        const url = `${this.endpoint}?page=${params.page}&page_size=${params.page_size}`;
+
         return $.ajax({
-            "url": this.endpoint,
+            "url": url,
             "dataType": "json",
             "method": "get"
         })
     }
 
-    list(): Promise<Model []>{
-        return this.makeJsonHttpRequest().then((data: any)=>data.results);
+    list(params: IRequestParameters = defaultParams): Promise<Model []>{
+        return this.makeJsonHttpRequest(params).then((data: any)=>data);
     }
 }

@@ -3,6 +3,7 @@
 import { Reducer, combineReducers } from 'redux';
 import { ICounterAction, ACTION } from './actions';
 import {tagListView} from "./components/tag_list";
+import {routerReducer} from "react-router-redux";
 
 function counters(state: number[] = [0, 0, 0], action: ICounterAction): number[] {
   switch (action.type) {
@@ -30,5 +31,6 @@ function counters(state: number[] = [0, 0, 0], action: ICounterAction): number[]
 
 export const counterApp: Reducer = combineReducers({
     counters,
-    tag_list: tagListView.getReducer()
+    tag_list: tagListView.getReducer(),
+    routing: routerReducer
 });
