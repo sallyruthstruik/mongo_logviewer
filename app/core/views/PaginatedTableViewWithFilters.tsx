@@ -87,11 +87,12 @@ export abstract class PaginatedTableViewWithFilters<Model extends IModel> extend
         const requestParams: IRequestParameters = this.getStore().getState()[this.name as string].requestParameters;
 
         return <ul>{filters.map((f)=>{
-            let value = requestParams.filters.filter(item=>item.name==f.getName());
-            if(value.length > 0){
-                value = value[0].value
-            }else{
-                value = null;
+            let value;
+            if(requestParams.filters.length) {
+                value = requestParams.filters.filter(item => item.name == f.getName());
+                if(value.length > 0){
+                    value = value[0].value
+                }
             }
 
             return <li>{f.getComponent({value})}</li>

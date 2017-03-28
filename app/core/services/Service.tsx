@@ -6,9 +6,14 @@ import {IModel} from "../models/IModel";
 
 declare var $: any;
 
+export interface IFilterItem{
+    name: string,
+    value: any,
+    type?: string
+}
 
 export interface IRequestParameters{
-    filters?: any;
+    filters?: IFilterItem[];
     page?: number;
     pages?: number;
     page_size?: number;
@@ -16,7 +21,7 @@ export interface IRequestParameters{
 }
 
 export const defaultParams: IRequestParameters = {
-    filters: {},
+    filters: [],
     page: 1,
     page_size: 10,
     ordering: []
